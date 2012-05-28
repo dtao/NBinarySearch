@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBinarySearch", "NBinarySearch\NBinarySearch.csproj", "{9685F50A-1DBB-425E-B7C4-EE0EEA543A53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBinarySearch.Test", "NBinarySearch.Test\NBinarySearch.Test.csproj", "{C0331680-0B6A-4C3E-AE15-703F04A90D96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9685F50A-1DBB-425E-B7C4-EE0EEA543A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9685F50A-1DBB-425E-B7C4-EE0EEA543A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9685F50A-1DBB-425E-B7C4-EE0EEA543A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9685F50A-1DBB-425E-B7C4-EE0EEA543A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0331680-0B6A-4C3E-AE15-703F04A90D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0331680-0B6A-4C3E-AE15-703F04A90D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0331680-0B6A-4C3E-AE15-703F04A90D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0331680-0B6A-4C3E-AE15-703F04A90D96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
