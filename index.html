@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>NBinarySearch by dtao</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/dtao/NBinarySearch">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/dtao/NBinarySearch/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/dtao/NBinarySearch/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>NBinarySearch</h1>
+          <p>Flexible binary search for all indexed collections in .NET</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/dtao">dtao</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>What is this for?</h3>
+
+<p>Out of the box, the .NET framework provides a binary search implementation only for the <code>List&lt;T&gt;</code> class and <code>T[]</code> arrays. This can be frustrating, as it is sometimes desirable for performance reasons to perform a binary search on an arbitrary <code>IList&lt;T&gt;</code> and calling <code>ToList()</code> or <code>ToArray()</code> for this purpose causes the performance-tuners among us to toss and turn at night.</p>
+
+<p>With <strong>NBinarySearch</strong> you can sleep soundly again. Take a look:</p>
+
+<div class="highlight">
+<pre><span class="c1">// NBinarySearch allows us to perform a binary search on any</span>
+<span class="c1">// indexed collection, not just List&lt;T&gt; and T[].</span>
+<span class="n">IList</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">userNames</span> <span class="p">=</span> <span class="n">GetUserNames</span><span class="p">();</span>
+<span class="kt">int</span> <span class="n">johnnyIndex</span> <span class="p">=</span> <span class="n">userNames</span><span class="p">.</span><span class="n">BinarySearch</span><span class="p">(</span><span class="s">"Johnny"</span><span class="p">);</span>
+</pre>
+</div>
+
+
+<h3>That's it?</h3>
+
+<p>Nope. What's also missing from .NET is the ability to binary search a list of elements that are sorted by some <em>property</em>. The naïve way to work around this is to use <code>Select()</code> followed by <code>ToList()</code>; but again, this incurs an unnecessary performance hit by populating an entirely new (potentially large) collection.</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">Person</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="kt">string</span> <span class="n">Name</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">Age</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Search by any property of an object.</span>
+<span class="n">IList</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;</span> <span class="n">users</span> <span class="p">=</span> <span class="n">GetUsers</span><span class="p">();</span>
+<span class="kt">int</span> <span class="n">samanthaIndex</span> <span class="p">=</span> <span class="n">users</span><span class="p">.</span><span class="n">BinarySearchByKey</span><span class="p">(</span><span class="s">"Samantha"</span><span class="p">,</span> <span class="n">user</span> <span class="p">=&gt;</span> <span class="n">user</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+<span class="c1">// We can also specify a custom comparer, no problem.</span>
+<span class="k">class</span> <span class="nc">AgeGroupComparer</span> <span class="p">:</span> <span class="n">IComparer</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="nf">Compare</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">GetAgeGroup</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="n">CompareTo</span><span class="p">(</span><span class="n">GetAgeGroup</span><span class="p">(</span><span class="n">y</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="nf">GetAgeGroup</span><span class="p">(</span><span class="kt">int</span> <span class="n">age</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">age</span> <span class="p">&lt;</span> <span class="m">18</span><span class="p">)</span>
+      <span class="k">return</span> <span class="m">0</span><span class="p">;</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">age</span> <span class="p">&lt;</span> <span class="m">30</span><span class="p">)</span>
+      <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">age</span> <span class="p">&lt;</span> <span class="m">45</span><span class="p">)</span>
+      <span class="k">return</span> <span class="m">2</span><span class="p">;</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">age</span> <span class="p">&lt;</span> <span class="m">60</span><span class="p">)</span>
+      <span class="k">return</span> <span class="m">3</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="m">4</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">var</span> <span class="n">john</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Person</span> <span class="p">{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s">"John"</span><span class="p">,</span> <span class="n">Age</span> <span class="p">=</span> <span class="m">18</span> <span class="p">};</span>
+<span class="n">IList</span><span class="p">&lt;</span><span class="n">Person</span><span class="p">&gt;</span> <span class="n">activeUsers</span> <span class="p">=</span> <span class="n">GetActiveUsers</span><span class="p">();</span>
+<span class="kt">int</span> <span class="n">johnIndex</span> <span class="p">=</span> <span class="n">activeUsers</span><span class="p">.</span><span class="n">BinarySearchByValue</span><span class="p">(</span><span class="n">john</span><span class="p">,</span> <span class="n">p</span> <span class="p">=&gt;</span> <span class="n">p</span><span class="p">.</span><span class="n">Age</span><span class="p">,</span> <span class="k">new</span> <span class="n">AgeGroupComparer</span><span class="p">());</span>
+</pre>
+</div>
+
+
+<p>Hopefully from the brief examples above you get a sense of where <strong>NBinarySearch</strong> is useful.</p>
+
+<h3>Installation</h3>
+
+<p>This one's pretty straightforward. First clone the repo:</p>
+
+<pre><code>$ git clone git://github.com/dtao/NBinarySearch.git
+</code></pre>
+
+<p>Then build locally with whatever toolchain you prefer, and you should be good to go.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p><strong>NBinarySearch</strong> was developed by <a href="http://philosopherdeveloper.wordpress.org">Dan Tao</a> (<a href="https://github.com/dtao">@dtao</a> on GitHub), an engineer in San Francisco.</p>
+
+<p>I currently work at <a href="http://www.cardpool.com">Cardpool</a> where, ironically, we don't use .NET at all.</p>
+
+<h3>Contact</h3>
+
+<p>Feel free to reach out to me at <a href="mailto:daniel.tao@gmail.com">daniel.tao@gmail.com</a> with any questions or concerns. If you find any bugs in this library or want to add features to it, create a ticket or submit a pull request!</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
