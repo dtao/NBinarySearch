@@ -6,13 +6,13 @@ Flexible binary search for all indexed collections in .NET
 
 ### What is this for?
 
-Out of the box, the .NET framework provides a binary search implementation only for the `List<T>` class and `T[]` arrays. This can be frustrating, as it is sometimes desirable for performance reasons to perform a binary search on an arbitrary `IList<T>`; and calling `ToList()` or `ToArray()` for this purpose causes the performance-tuners among us to toss and turn at night.
+Out of the box, the .NET framework provides a binary search implementation only for the `List<T>` class and `T[]` arrays. This can be frustrating, as it is sometimes desirable for performance reasons to perform a binary search on an arbitrary `IList<T>` and calling `ToList()` or `ToArray()` for this purpose causes the performance-tuners among us to toss and turn at night.
 
 With **NBinarySearch** you can sleep soundly again. Take a look:
 
 ```csharp
 // NBinarySearch allows us to perform a binary search on any indexed collection,
-// not just List<T>; and T[].
+// not just List<T> and T[].
 IList<string> userNames = GetUserNames();
 int johnnyIndex = userNames.BinarySearch("Johnny");
 ```
@@ -33,7 +33,7 @@ IList<Person> users = GetUsers();
 int samanthaIndex = users.BinarySearchByKey("Samantha", user => user.Name);
 
 // We can also specify a custom comparer, no problem.
-class AgeGroupComparer : IComparer&lt;int&gt;
+class AgeGroupComparer : IComparer<int>
 {
   public int Compare(int x, int y)
   {
@@ -42,13 +42,13 @@ class AgeGroupComparer : IComparer&lt;int&gt;
 
   int GetAgeGroup(int age)
   {
-    if (age &lt; 18)
+    if (age < 18)
       return 0;
-    else if (age &lt; 30)
+    else if (age < 30)
       return 1;
-    else if (age &lt; 45)
+    else if (age < 45)
       return 2;
-    else if (age &lt; 60)
+    else if (age < 60)
       return 3;
     else
       return 4;
