@@ -74,7 +74,7 @@ Then build locally with whatever toolchain you prefer, and you should be good to
 
 ### Authors and Contributors
 
-**NBinarySearch** was developed by [Dan Tao](http://philosopherdeveloper.wordpress.org) (<a href="https://github.com/dtao" class="user-mention">@dtao</a> on GitHub), an engineer in San Francisco.
+**NBinarySearch** was developed by [Dan Tao](http://philosopherdeveloper.com) (<a href="https://github.com/dtao" class="user-mention">@dtao</a> on GitHub), an engineer in San Francisco.
 
 I currently work at [Cardpool](http://www.cardpool.com) where, ironically, we don't use .NET at all.
 
